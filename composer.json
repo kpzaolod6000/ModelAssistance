@@ -1,0 +1,20 @@
+{
+    "name": "root/assistance-control",
+    "description": "example",
+    "type": "project",
+    "require": {
+        "phpoffice/phpspreadsheet": "1.23"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Root\\AssistanceControl\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "judal",
+            "email": "kpzaolod6000@gmail.com"
+        }
+    ]
+}

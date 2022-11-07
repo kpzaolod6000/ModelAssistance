@@ -1,0 +1,16 @@
+<?php
+	session_start();
+	include 'includes/conn.php';
+
+	if(!isset($_SESSION['admin']) || trim($_SESSION['admin']) == ''){
+		header('location: index.php');
+	}
+
+	//echo $_SESSION['admin'];
+	//exit;
+
+	$sql = "SELECT * FROM admin WHERE id = '".$_SESSION['admin']."'";
+	$query = $conn->query($sql);
+	$user = $query->fetch_assoc();
+	
+?>
