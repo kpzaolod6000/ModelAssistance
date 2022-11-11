@@ -28,17 +28,17 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `admin`
 --
 
-CREATE TABLE `admin` (
-  `id` int(11) NOT NULL,
-  `username` varchar(30) NOT NULL,
-  `password` varchar(60) NOT NULL,
-  `firstname` varchar(50) NOT NULL,
-  `lastname` varchar(50) NOT NULL,
-  `photo` varchar(200) NOT NULL,
-  `created_on` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CREATE TABLE `admin` (
+    `id` int(11) NOT NULL,
+    `username` varchar(30) NOT NULL,
+    `password` varchar(60) NOT NULL,
+    `firstname` varchar(50) NOT NULL,
+    `lastname` varchar(50) NOT NULL,
+    `photo` varchar(200) NOT NULL,
+    `created_on` date NOT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
+  --
 -- Volcado de datos para la tabla `admin`
 --
 

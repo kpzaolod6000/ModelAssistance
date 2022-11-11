@@ -31,6 +31,7 @@
             <li><a href="employee.php"><i class="fa fa-circle-o"></i> Lista de Estudiantes</a></li>
             <li><a href="overtime.php"><i class="fa fa-circle-o"></i> Tiempo Extra</a></li>
             <li><a href="cashadvance.php"><i class="fa fa-circle-o"></i> Adelanto en Efectivo</a></li> -->
+            <li><a href="teachers.php"><i class="fa fa-circle-o"></i> Listado</a></li>
             <li><a href="cashadvance.php"><i class="fa fa-circle-o"></i> Cursos</a></li>
             <li><a href="cashadvance.php"><i class="fa fa-circle-o"></i> Aulas</a></li>
             <li><a href="schedule.php"><i class="fa fa-circle-o"></i> Horarios</a></li>
@@ -51,7 +52,7 @@
             <li><a href="employee.php"><i class="fa fa-circle-o"></i> Lista de Estudiantes</a></li>
             <li><a href="overtime.php"><i class="fa fa-circle-o"></i> Tiempo Extra</a></li>
             <li><a href="cashadvance.php"><i class="fa fa-circle-o"></i> Adelanto en Efectivo</a></li> -->
-            <li><a href="estudiantes.php"><i class="fa fa-circle-o"></i> Listado</a></li> 
+            <li><a href="students.php"><i class="fa fa-circle-o"></i> Listado</a></li> 
             <li><a href="cashadvance.php"><i class="fa fa-circle-o"></i> Cursos</a></li> 
             <li><a href="cashadvance.php"><i class="fa fa-circle-o"></i> Aulas</a></li> 
             <li><a href="schedule.php"><i class="fa fa-circle-o"></i> Horarios</a></li>

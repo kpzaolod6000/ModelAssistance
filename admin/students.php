@@ -13,7 +13,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      Asistencia
+      Listado de Estudiantes
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -58,28 +58,27 @@
               <table id="example1" class="table table-bordered">
                 <thead>
                   <th class="hidden"></th>
-                  <th>Dni</th>
+                  <th>ID</th>
                   <th>Cui</th>
                   <th>Nombre Completo</th>
-                  <th>Curso</th>
-                  <th>Horarios</th>
-                  <th>Creado</th>
+                  <th>Genero</th>
+                  <th>Correo</th>
+                  <th>Fecha de creación</th>
                 </thead>
                 <tbody>
                   <?php
-                    $sql = "SELECT * FROM test_edu ORDER BY id DESC";
+                    $sql = "SELECT * FROM students ORDER BY id DESC";
                     $query = $conn->query($sql);
                     while($row = $query->fetch_assoc()){
                       // <td>".number_format($row['amount'], 2)."</td>
                       echo "
                         <tr>
                           <td class='hidden'></td>
-                          
-                          <td>".$row['dni']."</td>
-                          <td>".$row['cui']."</td>
-                          <td>".$row['firstname'].' '.$row['lastname']."</td>
-                          <td>".$row['courses']."</td>
-                          <td>".$row['horarios']."</td>
+                          <td>".$row['id']."</td>
+                          <td>".$row['cui']."</td>                          
+                          <td>".$row['names'].' '.$row['surnames']."</td>
+                          <td>".$row['gender']."</td>
+                          <td>".$row['email']."</td>
                           <td>".date('M d, Y', strtotime($row['created_on']))."</td>
                           <td>
                             <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Editar</button>
@@ -150,7 +149,7 @@ function uploadExcel(){
       formData.append('excel',excel);
       
       $.ajax({
-        url:'includes/handleExcel.php',
+        url:'includes/handleExcel/handleExcelStudent.php',
         type:'POST',
         data:formData,
         contentType:false,

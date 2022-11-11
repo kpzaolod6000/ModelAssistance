@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'root/assistance-control',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'f41d3b7586c61136b1dcbaff46f7ea3279e5839b',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -101,9 +101,9 @@
             'dev_requirement' => false,
         ),
         'root/assistance-control' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'f41d3b7586c61136b1dcbaff46f7ea3279e5839b',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
