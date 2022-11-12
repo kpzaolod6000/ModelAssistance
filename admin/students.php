@@ -155,14 +155,22 @@ function uploadExcel(){
         contentType:false,
         processData:false,
         success:function(resp){
-          Swal.fire("EXITO",resp,"success");
+          // console.log(resp)
+          let jsonData = JSON.parse(resp);
+          const add_count = jsonData.success > 0?  true : false;
+
+          if (add_count) {
+            Swal.fire("EXITO",jsonData.success +' estudiantes añadidos satisfactoriamente',"success");
+            
+          }else{
+            Swal.fire("WARNING","No se agrego ningun estudiante, los estudiantes ya se encuentran registrados","warning");
+          }
           $("#example1").load(location.href + " #example1");
-          
         }
       });
 
       console.log(filename);
-      //document.getElementById("upload-excel").value = "";
+      document.getElementById("upload-excel").value = "";
       return false;
       //
     }else{

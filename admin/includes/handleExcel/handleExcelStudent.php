@@ -1,5 +1,5 @@
 <?php include '../conn.php'; ?>
-<?php include '../header.php'; ?>
+<?php //include '../header.php'; ?>
 
 <?php
 
@@ -37,67 +37,42 @@ $cantidad = $spreadsheet->getActiveSheet()->toArray();
 $exito = false;
 //select students
 $sql = "SELECT * FROM students";
-$query = $conn->query($sql);
+$querySelect = $conn->query($sql);
+
+$studentsList = array();
+
+while($rowSelect = $querySelect->fetch_assoc()){
+    array_push($studentsList, $rowSelect['cui']);
+}
+
+
+$addCount = 0;
 
 foreach ($cantidad as $row) {
 
     if($row[0] != '' && $row[1] != '' && $row[2] != '' && $row[3] != ''){
 
-        $names = explode(", ", $row[2]);
-    
-        $queryInsert = "INSERT INTO students (cui,names,surnames,created_on,modified_on) VALUES ('$row[1]','$names[1]','$names[0]',NOW(),NOW())";
-        if($conn->query($queryInsert)){
-            $exito = true;
-            // print_r('Estudiantes añadidos satisfactoriamente');
-        }else{
-            $exito = false;
-            // print_r (".'$conn->error'.");
-        }
-        
-        // while($rowSelect = $query->fetch_assoc()){
-        //   // <td>".number_format($row['amount'], 2)."</td>
-          
-        //   $cui_ = (string)$rowSelect['cui'];
-        // //   echo ".'$cui_'.";
-        //   $cui_excel = (string)$row[1];
-        // //   echo $cui_
-        //   if ($cui_ != $cui_excel) {
 
-        //     $names = explode(", ", $row[2]);
-    
-        //     $queryInsert = "INSERT INTO students (cui,names,surnames,created_on,modified_on) VALUES ('$row[1]','$names[1]','$names[0]',NOW(),NOW())";
-        //     if($conn->query($queryInsert)){
-        //         $exito = true;
-        //     	// print_r('Estudiantes añadidos satisfactoriamente');
-        //     }else{
-        //         $exito = false;
-        //     	// print_r (".'$conn->error'.");
-        //     }
+        if (!in_array((string)$row[1], $studentsList)) {
+            $names = explode(", ", $row[2]);
+            $correct_names = explode("/",$names[0]);
+            $join_names ="{$correct_names[0]} {$correct_names[1]}";
             
-        //   } 
-        // }
-        
-        // $sql = "INSERT INTO students (cui,names,surnames,created_on,modified_on) VALUES ($row[1],$row[2],'$row[3]','$row[4]','$row[5]','$row[6]',NOW())";
-        // $sql = "INSERT INTO test_edu (dni,cui,firstname,lastname,courses,horarios,created_on) VALUES (75269815,745896,'Ronal','Perez','Paralela','2021-4','2020-01-07')";
-		// $result = $conn->query($sql);
-        // if($conn->query($sql)){
-        //     $exito = true;
-		// 	// print_r('Estudiantes añadidos satisfactoriamente');
-        // }else{
-        //     $exito = false;
-		// 	// print_r (".'$conn->error'.");
-		// }
+            $queryInsert = "INSERT INTO students (cui,names,surnames,created_on,modified_on) VALUES ('$row[1]','$join_names','$names[0]',NOW(),NOW())";
+            
+            if($conn->query($queryInsert)){
+                $exito = true;
+                $addCount++;    
 
-        // echo ".'$row[2]'.";
-        // $idxDot = $row[2].lastIndexOf(", ") + 1;
-        // $names = $row[2].substr(idxDot, $row[2].length).toLowerCase();
-        // list($surnames, $names) = split(',', $row[2]);
-        // $names = explode(", ", $row[2]);
-        // // echo gettype($row[2]);
-        // echo ".'$names[0]'.";
+            }else{
+                echo "error se encontro un dato erroneo {$row[2]}, por favor revise el documento segun la estructura";
+                // print_r (".'$conn->error'.");
+            }
+        }
     }
 }
 // header('location: ../estudiantes.php');
 // header("hello");
-echo 'Estudiantes añadidos satisfactoriamente'
+echo json_encode(array('success' => $addCount));
+
 ?>

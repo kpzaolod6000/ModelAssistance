@@ -61,21 +61,21 @@
                   <th>ID</th>
                   <th>Nombre Completo</th>
                   <th>Correo</th>
-                  <th>Genero</th>
                   <th>Fecha de creación</th>
                 </thead>
                 <tbody>
                   <?php
                     $sql = "SELECT * FROM teachers ORDER BY id DESC";
                     $query = $conn->query($sql);
+                    $countT = 0;
                     while($row = $query->fetch_assoc()){
                       // <td>".number_format($row['amount'], 2)."</td>
+                      $countT++;
                       echo "
                         <tr>
                           <td class='hidden'></td>
-                          <td>".$row['id']."</td>                        
+                          <td>".$countT."</td>                        
                           <td>".$row['names'].' '.$row['surnames']."</td>
-                          <td>".$row['gender']."</td>
                           <td>".$row['email']."</td>
                           <td>".date('M d, Y', strtotime($row['created_on']))."</td>
                           <td>
@@ -96,7 +96,7 @@
   </div>
     
   <?php include 'includes/footer.php'; ?>
-  <?php include 'includes/estudiantes_modal.php'; ?>
+  <?php include 'includes/modals/teachers_modal.php'; ?>
 </div>
 <?php include 'includes/scripts.php'; ?>
 <script>
@@ -153,14 +153,22 @@ function uploadExcel(){
         contentType:false,
         processData:false,
         success:function(resp){
-          Swal.fire("EXITO",resp,"success");
+          let jsonData = JSON.parse(resp);
+          const add_count = jsonData.success > 0?  true : false;
+
+          if (add_count) {
+            Swal.fire("EXITO",jsonData.success +' docentes añadidos satisfactoriamente',"success");
+            
+          }else{
+            Swal.fire("WARNING","No se agrego ningun docente, los docentes ya se encuentran registrados","warning");
+          }
           $("#example1").load(location.href + " #example1");
           
         }
       });
 
       console.log(filename);
-      //document.getElementById("upload-excel").value = "";
+      document.getElementById("upload-excel").value = "";
       return false;
       //
     }else{
