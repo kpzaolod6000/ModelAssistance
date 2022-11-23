@@ -76,7 +76,7 @@ if (isset($_GET['code'])) {
         Panel de Control
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+        <li><a href="#profile"><i class="fa fa-dashboard"></i> Inicio</a></li>
         <li class="active">Panel de Control</li>
       </ol>
     </section>
