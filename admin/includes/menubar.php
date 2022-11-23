@@ -31,8 +31,8 @@
             <li><a href="overtime.php"><i class="fa fa-circle-o"></i> Tiempo Extra</a></li>
             <li><a href="cashadvance.php"><i class="fa fa-circle-o"></i> Adelanto en Efectivo</a></li> -->
             <li><a href="teachers.php"><i class="fa fa-circle-o"></i> Listado</a></li>
-            <li><a href="cashadvance.php"><i class="fa fa-circle-o"></i> Cursos</a></li>
-            <li><a href="cashadvance.php"><i class="fa fa-circle-o"></i> Aulas</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Cursos</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Aulas</a></li>
             <li><a href="schedule.php"><i class="fa fa-circle-o"></i> Horarios</a></li>
           </ul>
         </li>
@@ -52,8 +52,8 @@
             <li><a href="overtime.php"><i class="fa fa-circle-o"></i> Tiempo Extra</a></li>
             <li><a href="cashadvance.php"><i class="fa fa-circle-o"></i> Adelanto en Efectivo</a></li> -->
             <li><a href="students.php"><i class="fa fa-circle-o"></i> Listado</a></li> 
-            <li><a href="cashadvance.php"><i class="fa fa-circle-o"></i> Cursos</a></li> 
-            <li><a href="cashadvance.php"><i class="fa fa-circle-o"></i> Aulas</a></li> 
+            <li><a href="#"><i class="fa fa-circle-o"></i> Cursos</a></li> 
+            <li><a href="#"><i class="fa fa-circle-o"></i> Aulas</a></li> 
             <li><a href="schedule.php"><i class="fa fa-circle-o"></i> Horarios</a></li>
           </ul>
         </li> 
@@ -62,13 +62,13 @@
 
 
         <li class="header">GESTION DE RECURSOS</li>
-        <li><a href="attendance.php"><i class="fa fa-calendar"></i> <span>Asistencia</span></a></li>
+        <li><a href="#"><i class="fa fa-calendar"></i> <span>Asistencia</span></a></li>
         <li><a href="asignatures.php"><i class="fa fa-book"></i> Cursos</a></li>
         <li><a href="classrooms.php"><i class="fa fa-tablet"></i> Aulas</a></li>
         <li><a href="schedules.php"><i class="fa fa-clock-o"></i> Horarios</a></li>
 
         <li class="header">IMPRIMIBLES</li>
-        <li><a href="payroll.php"><i class="fa fa-files-o"></i> <span>Reporte de Asistencia diaria</span></a></li>
+        <li><a href="#"><i class="fa fa-files-o"></i> <span>Reporte de Asistencia diaria</span></a></li>
         <li><a href="schedule_employee.php"><i class="fa fa-clock-o"></i> <span>Horarios</span></a></li>
       </ul>
     </section>
