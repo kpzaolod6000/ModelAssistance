@@ -49,7 +49,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header with-border">
-              <a href="#addnew" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Nuevo</a>
+              <a href="#addnew_students" data-toggle="modal" class="btn btn-primary btn-sm btn-flat"><i class="fa fa-plus"></i> Nuevo</a>
               <a onclick="uploadExcel()" class="btn btn-success btn-sm btn-flat"><i class="fa fa-upload"></i> Cargar</a>
               <input type = "file" id="upload-excel" class="form-upload hidden multiple" />
               
@@ -69,20 +69,22 @@
                   <?php
                     $sql = "SELECT * FROM students ORDER BY id DESC";
                     $query = $conn->query($sql);
+                    $countS = 0;
                     while($row = $query->fetch_assoc()){
                       // <td>".number_format($row['amount'], 2)."</td>
+                      $countS++;
                       echo "
                         <tr>
                           <td class='hidden'></td>
-                          <td>".$row['id']."</td>
+                          <td>".$countS."</td>
                           <td>".$row['cui']."</td>                          
                           <td>".$row['names'].' '.$row['surnames']."</td>
                           <td>".$row['gender']."</td>
                           <td>".$row['email']."</td>
                           <td>".date('M d, Y', strtotime($row['created_on']))."</td>
                           <td>
-                            <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Editar</button>
-                            <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['id']."'><i class='fa fa-trash'></i> Eliminar</button>
+                            <button class='btn btn-success btn-sm edit_student btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Editar</button>
+                            <button class='btn btn-danger btn-sm delete_student btn-flat' data-id='".$row['id']."'><i class='fa fa-trash'></i> Eliminar</button>
                           </td>
                         </tr>
                       ";
@@ -98,38 +100,63 @@
   </div>
     
   <?php include 'includes/footer.php'; ?>
-  <?php include 'includes/estudiantes_modal.php'; ?>
+  <?php include 'includes/modals/students_modal.php'; ?>
 </div>
 <?php include 'includes/scripts.php'; ?>
 <script>
 $(function(){
-  $('.edit').click(function(e){
+  $('.edit_student').click(function(e){
     e.preventDefault();
-    $('#edit').modal('show');
+    $('#edit_student').modal('show');
     var id = $(this).data('id');
-    getRow(id);
+    getDataStudentForUpdate(id);
   });
 
-  $('.delete').click(function(e){
+  $('.delete_student').click(function(e){
     e.preventDefault();
-    $('#delete').modal('show');
+    $('#delete_student').modal('show');
     var id = $(this).data('id');
-    getRow(id);
+    getDataStudentForDelete(id);
   });
 });
 
-function getRow(id){
+function getDataStudentForUpdate(id){
   $.ajax({
     type: 'POST',
-    url: 'cashadvance_row.php',
+    url: 'students_row.php',
     data: {id:id},
     dataType: 'json',
     success: function(response){
       console.log(response);
-      $('.date').html(response.date_advance);
-      $('.employee_name').html(response.firstname+' '+response.lastname);
-      $('.caid').val(response.caid);
-      $('#edit_amount').val(response.amount);
+      $('.user_cui').html(response.cui);
+      $('#edit_id').val(response.id);
+      $('#edit_names').val(response.names);
+      $('#edit_surnames').val(response.surnames);
+      $('#edit_email').val(response.email);
+
+      if (response.gender == "M") {
+        console.log("hola")
+        $('#edit_gender_m').prop( "checked", true );
+      }else if (response.gender == "F") {
+        $('#edit_gender_f').prop( "checked", true );
+      }else{
+        $('#edit_gender_m').prop( "checked", false );
+        $('#edit_gender_f').prop( "checked", false );
+      }
+    }
+  });
+}
+
+function getDataStudentForDelete(id){
+  $.ajax({
+    type: 'POST',
+    url: 'students_row.php',
+    data: {id:id},
+    dataType: 'json',
+    success: function(response){
+      console.log(response);
+      $('#delete_id').val(response.id);
+      $('.student-name').html(response.names+' '+response.surnames);
     }
   });
 }
@@ -158,14 +185,23 @@ function uploadExcel(){
           // console.log(resp)
           let jsonData = JSON.parse(resp);
           const add_count = jsonData.success > 0?  true : false;
-
           if (add_count) {
-            Swal.fire("EXITO",jsonData.success +' estudiantes añadidos satisfactoriamente',"success");
-            
+            Swal.fire({
+              title:"EXITO",
+              text:jsonData.success +' docentes añadidos satisfactoriamente',
+              icon:"success",
+              confirmButtonText: "Ok"
+            }).then(result => {
+              if (result.value) {
+                location.reload();
+              }else{
+                location.reload();
+              }
+            });
           }else{
             Swal.fire("WARNING","No se agrego ningun estudiante, los estudiantes ya se encuentran registrados","warning");
           }
-          $("#example1").load(location.href + " #example1");
+          // $("#example1").load(location.href + " #example1");
         }
       });
 

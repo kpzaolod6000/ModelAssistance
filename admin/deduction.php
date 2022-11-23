@@ -61,7 +61,8 @@
                     while($row = $query->fetch_assoc()){
                       echo "
                         <tr>
-                          <td>".Gestion."</td>
+                          <td>".$row['description']."</td>
+                          <td>".$row['amount']."</td>
                           <td>
                             <button class='btn btn-success btn-sm edit btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Editar</button>
                             <button class='btn btn-danger btn-sm delete btn-flat' data-id='".$row['id']."'><i class='fa fa-trash'></i> Eliminar</button>

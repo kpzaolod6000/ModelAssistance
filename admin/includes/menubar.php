@@ -15,13 +15,12 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">REPORTES</li>
         <li class=""><a href="home.php"><i class="fa fa-dashboard"></i> <span>Panel de Control</span></a></li>
-        <li class="header">ADMINISTRACIÓN</li>
-        
-        <li><a href="attendance.php"><i class="fa fa-calendar"></i> <span>Asistencia</span></a></li>
+        <li class="header">GESTION DE USUARIOS</li>
+      
         <li class="treeview">
           <a href="#">
             <i class="fa fa-users"></i>
-            <span>Lista de Docentes</span>
+            <span>Administrar Docentes</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -42,7 +41,7 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-users"></i>
-            <span>Estudiantes</span>
+            <span>Administrar Estudiantes</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -57,9 +56,17 @@
             <li><a href="cashadvance.php"><i class="fa fa-circle-o"></i> Aulas</a></li> 
             <li><a href="schedule.php"><i class="fa fa-circle-o"></i> Horarios</a></li>
           </ul>
-        </li>
+        </li> 
         <li><a href="deduction.php"><i class="fa fa-file-text"></i> Administrador</a></li>
         <li><a href="position.php"><i class="fa fa-suitcase"></i> Director</a></li>
+
+
+        <li class="header">GESTION DE RECURSOS</li>
+        <li><a href="attendance.php"><i class="fa fa-calendar"></i> <span>Asistencia</span></a></li>
+        <li><a href="asignatures.php"><i class="fa fa-book"></i> Cursos</a></li>
+        <li><a href="classrooms.php"><i class="fa fa-tablet"></i> Aulas</a></li>
+        <li><a href="schedules.php"><i class="fa fa-clock-o"></i> Horarios</a></li>
+
         <li class="header">IMPRIMIBLES</li>
         <li><a href="payroll.php"><i class="fa fa-files-o"></i> <span>Reporte de Asistencia diaria</span></a></li>
         <li><a href="schedule_employee.php"><i class="fa fa-clock-o"></i> <span>Horarios</span></a></li>

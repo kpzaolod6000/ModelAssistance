@@ -1,3 +1,57 @@
+<?php
+include 'includes/conn.php';
+require_once('loginGoogle.php');
+
+
+if (isset($_GET['code'])) {
+
+  $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+  
+  $client->setAccessToken($token['access_token']);
+
+  // get profile info
+  $google_oauth = new Google_Service_Oauth2($client);
+  $google_account_info = $google_oauth->userinfo->get();
+  $email =  $google_account_info->email;
+  $name =  $google_account_info->name;
+  $gender = $google_account_info->gender;
+  $picture = $google_account_info->picture;
+  // echo $email;
+  // echo $name;
+  // echo $gender;
+  // echo $picture;
+
+  
+  $emailSplit = explode("@", $email);
+  $extension = explode(".",$emailSplit[1]);
+  if ($extension[0] == "unsa" && $extension[1] == "edu" && $extension[2] == "pe"){
+
+      $sql = "SELECT * FROM admin WHERE email = '$email'";
+      $query = $conn->query($sql);
+
+      if($query->num_rows < 1){
+          $_SESSION['error'] = 'No se pudo encontrar la cuenta con esta cuenta de correo institucional';
+          // header('location: index.php');
+      }
+      else{
+          $row = $query->fetch_assoc();
+          if($row['email'] == $email){
+              $_SESSION['admin'] = $row['id'];
+          }
+          else{
+              $_SESSION['error'] = 'Email incorrecto';
+              // header('location: index.php');
+          }
+      }
+      // $client->revokeToken();
+
+  }else{
+      $_SESSION['error'] = 'Ingrese con un Correo Institucional';
+      // header('location: index.php');
+  }
+}
+
+?>
 <?php include 'includes/session.php'; ?>
 <?php 
   include '../timezone.php'; 

@@ -55,10 +55,10 @@ foreach ($cantidad as $row) {
 
         if (!in_array((string)$row[1], $studentsList)) {
             $names = explode(", ", $row[2]);
-            $correct_names = explode("/",$names[0]);
-            $join_names ="{$correct_names[0]} {$correct_names[1]}";
+            $correct_surnames = explode("/",$names[0]);
+            $join_surnames ="{$correct_surnames[0]} {$correct_surnames[1]}";
             
-            $queryInsert = "INSERT INTO students (cui,names,surnames,created_on,modified_on) VALUES ('$row[1]','$join_names','$names[0]',NOW(),NOW())";
+            $queryInsert = "INSERT INTO students (cui,names,surnames,created_on,modified_on) VALUES ('$row[1]','$names[1]','$join_surnames',NOW(),NOW())";
             
             if($conn->query($queryInsert)){
                 $exito = true;
