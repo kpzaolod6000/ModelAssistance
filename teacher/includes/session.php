@@ -3,7 +3,7 @@
 	include 'includes/conn.php';
 
 	if(!isset($_SESSION['teacher']) || trim($_SESSION['teacher']) == ''){
-		header('location: http://localhost:81/AssistanceControl/teacher/index.php');
+		header('location: index.php');
 	}
 
 	//echo $_SESSION['admin'];

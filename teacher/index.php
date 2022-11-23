@@ -2,7 +2,7 @@
   session_start();
   if(isset($_SESSION['teacher'])){
     // echo "administrator access";
-	header('location:http://localhost:81/AssistanceControl/teacher/home.php');
+	header('location:home.php');
 	// $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/AssistanceControl/admin/home.php';
 	// header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 
