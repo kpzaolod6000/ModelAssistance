@@ -77,6 +77,10 @@ h4 {
 #footer a{
     color:whitesmoke;
 }
+
+.info-student{
+  cursor:pointer;
+}
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -88,12 +92,17 @@ h4 {
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Asistencia de Alumnos
-      </h1>
+      <?php
+         $id_docent = $_SESSION['teacher'];
+         $sqlTeacher = "SELECT * FROM teachers WHERE teachers.id = '$id_docent'";
+         $queryTeachers = $conn->query($sqlTeacher);
+         $row_class = $queryTeachers->fetch_assoc();
+
+          echo "<h1>"."Panel del Docente ".$row_class['names']." ".$row_class['surnames']."</h1>"
+      ?>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Asistencia de Alumnos</li>
+        <li class="active"> Panel del Docente</li>
       </ol>
     </section>
 
@@ -121,11 +130,110 @@ h4 {
           unset($_SESSION['success']);
         }
       ?>
-      
-    <div>
+  
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-blue">
+            <div class="inner">
+              <?php
+                // $sql = "SELECT * FROM employees";
+                // $query = $conn->query($sql);
 
-    <!-- tabla -->  
-    <div class="container">
+                // echo "<h3>".$query->num_rows."</h3>";
+              ?>
+
+              <h2>Asistencia Personal</h2>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person"></i>
+            </div>
+            <a href="employee.php" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <?php
+                // $sql = "SELECT * FROM attendance";
+                // $query = $conn->query($sql);
+                // $total = $query->num_rows;
+
+                // $sql = "SELECT * FROM attendance WHERE status = 1";
+                // $query = $conn->query($sql);
+                // $early = $query->num_rows;
+                
+                // $percentage = ($early/$total)*100;
+
+                // echo "<h3>".number_format($percentage, 2)."<sup style='font-size: 20px'>%</sup></h3>";
+              ?>
+          
+              <h2>Asistencias de Estudiantes</h2>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-stalker"></i>
+            </div>
+            <a onclick ="editContainer('student')" class="small-box-footer info-student">Más información <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <?php
+                // $sql = "SELECT * FROM attendance WHERE date = '$today' AND status = 1";
+                // $query = $conn->query($sql);
+
+                // echo "<h3>".$query->num_rows."</h3>"
+              ?>
+             
+              <h2>Horarios</h2>
+            </div>
+            <div class="icon">
+              <i class="ion ion-clock"></i>
+            </div>
+            <a href="attendance.php" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-purple">
+            <div class="inner">
+              <?php
+                // $sql = "SELECT * FROM attendance WHERE date = '$today' AND status = 0";
+                // $query = $conn->query($sql);
+
+                // echo "<h3>".$query->num_rows."</h3>"
+              ?>
+
+              <h2>Cursos</h2>
+            </div>
+            <div class="icon">
+              <i class="ion ion-ios-book"></i>
+            </div>  
+            <a href="attendance.php" class="small-box-footer">Más información <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+    </section>
+
+    <?php
+      /**
+       * @var mixed HASH
+       */
+      $username = password_hash("sin username", PASSWORD_DEFAULT);
+      $password = password_hash("test", PASSWORD_DEFAULT);
+      // echo $password;
+      echo $_SESSION['teacher'];
+    ?>
+    
+    <!-- tabla -->
+    <div class="container" id="container">
         <div class="row">
           <div class="col-12">
             <table class="table table-bordered">
@@ -244,6 +352,26 @@ h4 {
                 return;
             }
         }
+
+        function editContainer(param) {
+          const constainer = document.getElementById('container');
+          if (param == 'student') {
+            
+            const xhr = new XMLHttpRequest();            
+            xhr.onload = function(){
+              if (this.status === 200) {
+                container.innerHTML = xhr.responseText;
+              } else {
+                console.warn("Falla de solicitud");
+              }
+            };
+            xhr.open('post','assStudents/main.php');
+            xhr.send();
+          }
+          
+
+        }
+        
         
     </script>   
     <!-- /footer -->
@@ -260,10 +388,9 @@ h4 {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
     -->
     </div>
-
+      
+    <?php include 'includes/footer.php'; ?>
 </div>
      
-<?php include 'includes/footer.php'; ?>
-
 </body>
 </html>

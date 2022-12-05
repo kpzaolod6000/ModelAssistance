@@ -76,7 +76,7 @@
                           <td class='hidden'></td>
                           <td>".$countT."</td>
                           <td>".$row['nro_class']."</td>
-                          <td>".$row['name']."</td>
+                          <td>".$row['names']."</td>
                           <td>".date('M d, Y', strtotime($row['created_on']))."</td>
                           <td>".date('M d, Y', strtotime($row['modified_on']))."</td>
                           <td>

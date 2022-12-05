@@ -1,5 +1,15 @@
-<?php include 'includes/session.php'; ?>
+<?php
+
+use Google\Service\CloudSearch\Value;
+
+ include 'includes/session.php'; ?>
 <?php include 'includes/header.php'; ?>
+<?php
+function test_($array){
+  echo $array;
+}
+?>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -57,6 +67,7 @@
               <table id="example1" class="table table-bordered">
                 <thead>
                   <th class="hidden"></th>
+                  <th></th>
                   <th>ID</th>
                   <th>Código</th>
                   <th>Nombres</th>
@@ -67,28 +78,111 @@
                 </thead>
                 <tbody>
                   <?php
-                    $sql = "SELECT * FROM asignatures ORDER BY id DESC";
+                    $sql = "SELECT * FROM asignatures ORDER BY names ASC";
                     $query = $conn->query($sql);
                     $countT = 0;
+
+                    $sqlAsigStudent = "SELECT s.cui, concat(s.names,',',s.surnames) as NameStudent, ass.id_asignature, ass.groups, ass.nro_matr FROM asignatures a INNER JOIN asig_student ass ON a.id = ass.id_asignature INNER JOIN students s ON ass.id_student = s.id ORDER BY a.names ASC";
+                    $queryAsigStudent = $conn->query($sqlAsigStudent);
+                    $countAS = 0;
+                    $rowAsigStudent = $queryAsigStudent->fetch_all(MYSQLI_ASSOC);
+                  
+                    $studentList = array();
+
                     while($row = $query->fetch_assoc()){
                       // <td>".number_format($row['amount'], 2)."</td>
                       $countT++;
-                      echo "
-                        <tr>
-                          <td class='hidden'></td>
-                          <td>".$countT."</td>
-                          <td>".$row['code']."</td>
-                          <td>".$row['names']."</td>
-                          <td>".$row['credit']."</td>
-                          <td>".$row['pre_requeriments']."</td>
-                          <td>".date('M d, Y', strtotime($row['created_on']))."</td>
-                          <td>".date('M d, Y', strtotime($row['modified_on']))."</td>
+                      // echo (int)$row['id'];
+                    
+                      foreach ($rowAsigStudent as $itemStudent) {
+                          //printf("%s (%s)\n", $itemStudent["cui"],$itemStudent["NameStudent"]);
+                          if((int) $row['id'] == (int) $itemStudent['id_asignature']){
+                            array_push($studentList, $itemStudent);
+                          //   $cui = $itemStudent['cui'];
+                          // $nameStudent = $itemStudent['NameStudent'];
+                          // $groups = $itemStudent['groups'];
+                          // $nroMatri = $itemStudent['nro_matr'];
+                        }
+                      }
+                      
+                      
+                      echo '
+                      <tr data-toggle="collapse" data-target="#demo'.$countT.'" class="accordion-toggle">
+                          <td><button class="btn btn-primary"><i class="fa fa-user-plus"></i></button></td>
+                          <td class="hidden"></td>
+                          <td>' . $countT . '</td>
+                          <td>' . $row['code'] . '</td>
+                          <td>' . $row['names'] . '</td>
+                          <td>' . $row['credit'] . '</td>
+                          <td>' . $row['pre_requeriments'] . '</td>
+                          <td>' . date('M d, Y', strtotime($row['created_on'])) . '</td>
+                          <td>' . date('M d, Y', strtotime($row['modified_on'])) . '</td>
                           <td>
-                            <button class='btn btn-success btn-sm edit_asignature btn-flat' data-id='".$row['id']."'><i class='fa fa-edit'></i> Editar</button>
-                            <button class='btn btn-danger btn-sm delete_asignature btn-flat' data-id='".$row['id']."'><i class='fa fa-trash'></i> Eliminar</button>
+                            <button class="btn btn-success btn-sm edit_asignature btn-flat" data-id="' . $row['id'] . '"><i class="fa fa-edit"></i> Editar</button>
+                            <button class="btn btn-danger btn-sm delete_asignature btn-flat2" data-id="' . $row['id'] . '"><i class="fa fa-trash"></i> Eliminar</button>
                           </td>
                         </tr>
-                      ";
+
+                        <tr>
+                          <td colspan="12" class="hiddenRow">
+                            <div class="accordian-body collapse" aria-expanded="false" id="demo'.$countT.'"> 
+                            <table class="table table-striped">
+                                    <thead>
+                                      <tr class="info">
+                                        <th>CUI</th>
+                                        <th>Nombre Completo</th>
+                                        <th>Grupo</th>
+                                        <th>Nro.Matricula</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="tbody'.$countT.'">
+                                    </tbody>
+                              </table>
+                            </div> 
+                          </td>
+                        </tr>
+                      ';
+                      $count_ = 0;
+                      foreach ($studentList as $itemStudent) {
+                        $cui = $itemStudent['cui'];
+                        $nameStudent = $itemStudent['NameStudent'];
+                        $groups = $itemStudent['groups'];
+                        $nroMatri = $itemStudent['nro_matr'];
+                        $count_++;
+                        // $txt = "<tr>
+                        //   <td>$cui</td>
+                        //   <td>$nameStudent</td>
+                        //   <td>$groups</td>
+                        //   <td>$nroMatri</td></tr>";
+
+                        echo "<script>
+
+                          var tbody$count_ = document.getElementById('tbody$countT');
+                          let tr$count_ = document.createElement('tr');
+                          
+                          let td_cui$count_ = document.createElement('td');
+                          td_cui$count_.textContent = '$cui';
+                          tr$count_.appendChild(td_cui$count_);
+                          let td_nameStudent$count_ = document.createElement('td');
+                          td_nameStudent$count_.textContent = '$nameStudent';
+                          tr$count_.appendChild(td_nameStudent$count_);
+                          let td_groups$count_ = document.createElement('td');
+                          td_groups$count_.textContent = '$groups';
+                          tr$count_.appendChild(td_groups$count_);
+                          let td_nroM$count_ = document.createElement('td');
+                          td_nroM$count_.textContent = '$nroMatri';
+                          tr$count_.appendChild(td_nroM$count_);
+                          tbody$count_.appendChild(tr$count_);
+                          </script>
+                          ";
+                      }
+                      // }
+                      // <tr>
+                      //   <td>'.$studentList[0]['cui'].'</td>
+                      //   <td>'.$studentList[0]['NameStudent'].'</td>
+                      //   <td>'.$studentList[0]['groups'].'</td>
+                      //   <td>'.$studentList[0]['nro_matr'].'</td>
+                      // </tr>
                     }
                   ?>
                 </tbody>
@@ -214,4 +308,3 @@ function getDataAsignatureForDelete(id){
 </script>
 </body>
 </html>
-

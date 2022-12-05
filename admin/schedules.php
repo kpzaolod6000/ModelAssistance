@@ -13,7 +13,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      Listado de Docentes
+      Listado de Horarios
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -70,11 +70,13 @@
                 </thead>
                 <tbody>
                   <?php
-                    $sql = "SELECT * FROM schedule ORDER BY id DESC";
+                    $sql = "SELECT s.hour_ini , s.hour_end, s.types, s.dates, a.names,c.nro_class,concat(t.names,',',t.surnames) as 'NameTeacher', s.created_on, s.modified_on FROM schedule s INNER JOIN teachers t ON s.id_teacher = t.id INNER JOIN asignatures a ON s.id_asignature = a.id INNER JOIN classroom c ON s.id_classroom = c.id";
                     $query = $conn->query($sql);
                     $countT = 0;
                     while($row = $query->fetch_assoc()){
                       // <td>".number_format($row['amount'], 2)."</td>
+                    //   echo $row;
+                    // exit;
                       $countT++;
                       echo "
                         <tr>
@@ -83,9 +85,9 @@
                           <td>".$row['hour_ini'].' '.$row['hour_end']."</td>
                           <td>".$row['types']."</td>
                           <td>".$row['dates']."</td>
-                          <td>".$row['id_asignature']."</td>
-                          <td>".$row['id_classroom']."</td>
-                          <td>".$row['id_teacher']."</td>
+                          <td>".$row['names']."</td>
+                          <td>".$row['nro_class']."</td>
+                          <td>".$row['NameTeacher']."</td>
                           <td>".date('M d, Y', strtotime($row['created_on']))."</td>
                           <td>".date('M d, Y', strtotime($row['modified_on']))."</td>
                           <td>
@@ -189,29 +191,30 @@ function uploadExcel(){
         contentType:false,
         processData:false,
         success:function(resp){
-          console.log(resp)
-          // let jsonData = JSON.parse(resp);
+          // console.log(JSON.parse(resp));
+          console.log(resp);
+          let jsonData = JSON.parse(resp);
           
-          // if (jsonData.success > 0) {
-          //   Swal.fire({
-          //     title:"EXITO",
-          //     text:jsonData.success +' horario añadidos satisfactoriamente',
-          //     icon:"success",
-          //     confirmButtonText: "Ok"
-          //   }).then(result => {
-          //     if (result.value) {
-          //       location.reload();
-          //     }else{
-          //       location.reload();
-          //     }
-          //   });
+          if (jsonData.success > 0) {
+            Swal.fire({
+              title:"EXITO",
+              text:jsonData.success +' horario añadidos satisfactoriamente',
+              icon:"success",
+              confirmButtonText: "Ok"
+            }).then(result => {
+              if (result.value) {
+                location.reload();
+              }else{
+                location.reload();
+              }
+            });
             
-          // } else if(jsonData.success < 0){
-          //   Swal.fire("WARNING","No es un archivo de horarios","warning");
-          // }
-          // else{
-          //   Swal.fire("WARNING","No se agrego ningun horarios, el horario ya se encuentran registrados","warning");
-          // }
+          } else if(jsonData.success < 0){
+            Swal.fire("WARNING","No es un archivo de horarios","warning");
+          }
+          else{
+            Swal.fire("WARNING","No se agrego ningun horarios, el horario ya se encuentran registrados","warning");
+          }
           // $("#example1").load(location.href+" #example1>*","");
           // $("#example1").load(" #example1");
         }

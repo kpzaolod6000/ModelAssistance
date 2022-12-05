@@ -16,6 +16,35 @@
     height: 1px;
 }
 
+.roles-std{
+  margin-left: 31px;
+  width: 250px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-image-student{
+  width: 120px;
+  height: 120px;
+  border-radius: 25px;
+  margin-left: 20px;
+  margin-right: 70px;
+}
+
+.user-image-student:hover{
+  width: 130px;
+  height: 130px;
+}
+
+.user-image-teacher{
+  width: 120px; 
+  height: 120px; 
+  border-radius: 25px;
+}
+.user-image-teacher:hover{
+  width: 130px;
+  height: 130px;
+}
 
 </style>
 
@@ -28,11 +57,11 @@
   	<div class="login-box-body">
     	<h4 class="login-box-msg">Selección de Usuarios</h4>
          
-            <div class="d-flex flex-row">
-              <div class="p-2">
+            <div class="roles-std">
+              <div class="p-student">
                 <h5>Estudiante</h5>
               </div>
-              <div class="p-2">
+              <div class="p-teacher">
                 <h5>Docente</h5>
               </div>
             </div>
@@ -40,8 +69,8 @@
           <div class="row">
           <!-- <button class='btn btn-success btn-sm docente btn-flat'><i class='fa fa-edit'></i></button> -->
             
-            <a href="#"><img src='./images/student.jpg' class="user-image-student" alt="User Image Student" style = "width: 120px; height: 120px; border-radius: 25px;  margin-left: 20px; margin-right: 70px;"></a>
-            <a href="./teacher/index.php"><img src='./images/teacher.jpg' class="user-image-teacher" alt="User Image Teacher" style = "width: 120px; height: 120px; border-radius: 25px"></a>
+            <a href="#"><img src='./images/student.jpg' class="user-image-student" alt="User Image Student"></a>
+            <a href="./teacher/index.php"><img src='./images/teacher.jpg' class="user-image-teacher" alt="User Image Teacher"></a>
             
           </div>
           <div class="or-container"><div class="line-separator"></div> </div>

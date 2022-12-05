@@ -188,7 +188,7 @@ function uploadExcel(){
           if (add_count) {
             Swal.fire({
               title:"EXITO",
-              text:jsonData.success +' docentes añadidos satisfactoriamente',
+              text:jsonData.success +' estudiantes añadidos satisfactoriamente',
               icon:"success",
               confirmButtonText: "Ok"
             }).then(result => {
