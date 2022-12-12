@@ -4,11 +4,7 @@ use Google\Service\CloudSearch\Value;
 
  include 'includes/session.php'; ?>
 <?php include 'includes/header.php'; ?>
-<?php
-function test_($array){
-  echo $array;
-}
-?>
+
 
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -82,7 +78,7 @@ function test_($array){
                     $query = $conn->query($sql);
                     $countT = 0;
 
-                    $sqlAsigStudent = "SELECT s.cui, concat(s.names,',',s.surnames) as NameStudent, ass.id_asignature, ass.groups, ass.nro_matr FROM asignatures a INNER JOIN asig_student ass ON a.id = ass.id_asignature INNER JOIN students s ON ass.id_student = s.id ORDER BY a.names ASC";
+                    $sqlAsigStudent = "SELECT s.cui, concat(s.names,',',s.surnames) as NameStudent, ass.id_asignature, ass.groups, ass.nro_matr FROM asignatures a INNER JOIN asig_student ass ON a.id = ass.id_asignature INNER JOIN students s ON ass.id_student = s.cui ORDER BY a.names ASC";
                     $queryAsigStudent = $conn->query($sqlAsigStudent);
                     $countAS = 0;
                     $rowAsigStudent = $queryAsigStudent->fetch_all(MYSQLI_ASSOC);

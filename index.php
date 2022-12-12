@@ -98,8 +98,9 @@
 $(function() {
   var interval = setInterval(function() {
     var momentNow = moment();
-    $('#date').html(momentNow.format('dddd').substring(0,3).toUpperCase() + ' - ' + momentNow.format('MMMM DD, YYYY'));  
-    $('#time').html(momentNow.format('hh:mm:ss A'));
+    $('#date').html(momentNow.format('dddd').substring(0,3).toUpperCase() + ' - ' + momentNow.format('MMMM DD, YYYY'));
+    // $('#time').html(momentNow.format('hh:mm:ss A'));
+    $('#time').html(momentNow.format('hh:mm:ss a'));
   }, 100);
 
   $('#attendance').submit(function(e){

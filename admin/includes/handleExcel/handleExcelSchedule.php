@@ -82,24 +82,6 @@ foreach ($cantidad as $row) {
                 // print_r (".'$conn->error'.");
             }
         }
-
-
-        // if (!in_array((string)$row[1], $studentsList)) {
-        //     $names = explode(", ", $row[2]);
-        //     $correct_surnames = explode("/",$names[0]);
-        //     $join_surnames ="{$correct_surnames[0]} {$correct_surnames[1]}";
-            
-        //     $queryInsert = "INSERT INTO students (cui,names,surnames,created_on,modified_on) VALUES ('$row[1]','$names[1]','$join_surnames',NOW(),NOW())";
-            
-        //     if($conn->query($queryInsert)){
-        //         $exito = true;
-        //         $addCount++;    
-
-        //     }else{
-        //         echo "error se encontro un dato erroneo {$row[2]}, por favor revise el documento segun la estructura";
-        //         // print_r (".'$conn->error'.");
-        //     }
-        // }
     }
 
     if($row[1] != '' || $row[2] != '' || $row[3] != '' || $row[4] != '' || $row[5] != '' || $row[6] != ''){
