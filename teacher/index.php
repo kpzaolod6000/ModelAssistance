@@ -80,7 +80,6 @@
 					// header('location:index.php');
 					// now you can use this profile info to create account in your website and make user logged in.
 				}
-
 				?>				
 			</tbody>
 			<!-- <div class="row">
@@ -90,6 +89,7 @@
 				</div>
 			</div> -->
   	</div>
+	  <a href="../index.php" class="btn btn-success active" role="button" aria-pressed="true"><i class="fa fa-arrow-left"></i><span>Atras</span></a>
   	<?php
   		if(isset($_SESSION['error'])){
   			echo "

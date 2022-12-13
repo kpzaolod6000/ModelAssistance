@@ -69,7 +69,7 @@
           <div class="row">
           <!-- <button class='btn btn-success btn-sm docente btn-flat'><i class='fa fa-edit'></i></button> -->
             
-            <a href="#"><img src='./images/student.jpg' class="user-image-student" alt="User Image Student"></a>
+            <a href="./student/index.php"><img src='./images/student.jpg' class="user-image-student" alt="User Image Student"></a>
             <a href="./teacher/index.php"><img src='./images/teacher.jpg' class="user-image-teacher" alt="User Image Teacher"></a>
             
           </div>

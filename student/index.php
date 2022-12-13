@@ -1,6 +1,6 @@
 <?php
   session_start();
-  if(isset($_SESSION['admin'])){
+  if(isset($_SESSION['student'])){
     // echo "administrator access";
 	header('location:home.php');
 	// $redirect_uri = 'http://' . $_SERVER['HTTP_HOST'] . '/AssistanceControl/admin/home.php';
@@ -40,7 +40,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   	<div class="login-logo">
-  		<b>Login Administrador</b>
+  		<b>Login Estudiante</b>
   	</div>
   
   	<div class="login-box-body">
@@ -80,7 +80,6 @@
 					// header('location:index.php');
 					// now you can use this profile info to create account in your website and make user logged in.
 				}
-
 				?>				
 			</tbody>
 			<!-- <div class="row">

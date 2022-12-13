@@ -1,66 +1,4 @@
-<?php
-include 'includes/session.php';
-require_once('loginGoogle.php');
-
-
-if (isset($_GET['code'])) {
-
-  $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-  
-  $client->setAccessToken($token['access_token']);
-
-  // get profile info
-  $google_oauth = new Google_Service_Oauth2($client);
-  $google_account_info = $google_oauth->userinfo->get();
-  $email =  $google_account_info->email;
-  $name =  $google_account_info->name;
-  $gender = $google_account_info->gender;
-  $picture = $google_account_info->picture;
-  // echo $email;
-  // echo $name;
-  // echo $gender;
-  // echo $picture;
-
-  
-  $emailSplit = explode("@", $email);
-  $extension = explode(".",$emailSplit[1]);
-  if ($extension[0] == "unsa" && $extension[1] == "edu" && $extension[2] == "pe"){
-
-      $sql = "SELECT * FROM teachers WHERE email = '$email'";
-      $query = $conn->query($sql);
-
-      if($query->num_rows < 1){
-          $_SESSION['error'] = 'No se pudo encontrar la cuenta con esta cuenta de correo institucional';
-          // header('location: index.php');
-      }
-      else{
-          $row = $query->fetch_assoc();
-          if($row['email'] == $email){
-              $_SESSION['teacher'] = $row['id'];
-          }
-          else{
-              $_SESSION['error'] = 'Email incorrecto';
-              // header('location: index.php');
-          }
-      }
-      // $client->revokeToken();
-
-  }else{
-      $_SESSION['error'] = 'Ingrese con un Correo Institucional';
-      // header('location: index.php');
-  }
-}
-
-?>
-<?php include 'includes/session.php'; ?>
-<?php 
-  include '../timezone.php'; 
-  $today = date('Y-m-d');
-  $year = date('Y');
-  if(isset($_GET['year'])){
-    $year = $_GET['year'];
-  }
-?>
+<?php include 'includes/session.php';?>
 <?php include 'includes/header.php'; ?>
 <style>
 .container {
@@ -123,17 +61,17 @@ h4 {
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <?php
-         $id_docent = $_SESSION['teacher'];
-         $sqlTeacher = "SELECT * FROM teachers WHERE teachers.id = '$id_docent'";
+         $id_student = $_SESSION['student'];
+         $sqlTeacher = "SELECT * FROM students WHERE students.id = '$id_student'";
          $queryTeachers = $conn->query($sqlTeacher);
          $row_class = $queryTeachers->fetch_assoc();
 
-          echo "<h1>"."Panel del Docente ".$row_class['names']." ".$row_class['surnames']."</h1>";
+          echo "<h1>"."Panel del Estudiante ".$row_class['names']." ".$row_class['surnames']."</h1>";
           echo '<input type="text" id="idT" value="'.$id_docent.'" hidden>';
       ?>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active"> Panel del Docente</li>
+        <li class="active"> Panel del Estudiante</li>
       </ol>
     </section>
 
@@ -161,96 +99,6 @@ h4 {
           unset($_SESSION['success']);
         }
       ?>
-  
-    <!-- Small boxes (Stat box) -->
-    <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-blue">
-            <div class="inner">
-              <?php
-                // $sql = "SELECT * FROM employees";
-                // $query = $conn->query($sql);
-
-                // echo "<h3>".$query->num_rows."</h3>";
-              ?>
-
-              <h2>Asistencia Personal</h2>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person"></i>
-            </div>
-            <a onclick="editContainer('personal')" class="small-box-footer info-personal">Más información <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <?php
-                // $sql = "SELECT * FROM attendance";
-                // $query = $conn->query($sql);
-                // $total = $query->num_rows;
-
-                // $sql = "SELECT * FROM attendance WHERE status = 1";
-                // $query = $conn->query($sql);
-                // $early = $query->num_rows;
-                
-                // $percentage = ($early/$total)*100;
-
-                // echo "<h3>".number_format($percentage, 2)."<sup style='font-size: 20px'>%</sup></h3>";
-              ?>
-          
-              <h2>Asistencia de Estudiantes</h2>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person-stalker"></i>
-            </div>
-            <a onclick ="editContainer('student')" class="small-box-footer info-student">Más información <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <?php
-                // $sql = "SELECT * FROM attendance WHERE date = '$today' AND status = 1";
-                // $query = $conn->query($sql);
-
-                // echo "<h3>".$query->num_rows."</h3>"
-              ?>
-             
-              <h2>Horarios</h2>
-            </div>
-            <div class="icon">
-              <i class="ion ion-clock"></i>
-            </div>
-            <a onclick ="editContainer('schedule')" class="small-box-footer info-schedule">Más información <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-purple">
-            <div class="inner">
-              <?php
-                // $sql = "SELECT * FROM attendance WHERE date = '$today' AND status = 0";
-                // $query = $conn->query($sql);
-
-                // echo "<h3>".$query->num_rows."</h3>"
-              ?>
-
-              <h2>Cursos</h2>
-            </div>
-            <div class="icon">
-              <i class="ion ion-ios-book"></i>
-            </div>  
-            <a onclick="editContainer('asignatures')" class="small-box-footer info-asignature">Más información <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
     </section>
 
     <?php
@@ -474,66 +322,6 @@ h4 {
                 elemento2.className="btn btn-primary";
                 return;
             }
-        }
-
-        function editContainer(param) {
-          const container = document.getElementById('container');
-          var info_ = document.getElementById('info-asig');
-
-          if (param == 'student') {
-
-            
-            const xhr = new XMLHttpRequest();            
-            xhr.onload = function(){
-              if (this.status === 200) {
-                container.innerHTML = xhr.responseText;
-              } else {
-                console.warn("Falla de solicitud");
-              }
-            };
-            
-            xhr.open('post','assStudents/main.php');
-            xhr.send();
-            
-          }else if(param == 'schedule'){
-            const xhr = new XMLHttpRequest();            
-            xhr.onload = function(){
-              if (this.status === 200) {
-                container.innerHTML = xhr.responseText;
-              } else {
-                console.warn("Falla de solicitud");
-              }
-            };
-            xhr.open('post','assStudents/calendars.php');
-            xhr.send();
-          }else if(param == 'personal'){
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function(){
-              if (this.status === 200) {
-                container.innerHTML = xhr.response;
-              } else {
-
-                console.warn("Falla de solicitud");
-              }
-            };
-            xhr.open('post','assStudents/assistanceTeacher.php');
-            xhr.send();
-            
-          }else if(param == 'asignatures'){
-            const xhr = new XMLHttpRequest();
-            xhr.onload = function(){
-              if (this.status === 200) {
-                container.innerHTML = xhr.response;
-              } else {
-
-                console.warn("Falla de solicitud");
-              }
-            };
-            xhr.open('post','assStudents/asignaturesTeacher.php');
-            xhr.send();
-          }
-          
-
         }
         
         
