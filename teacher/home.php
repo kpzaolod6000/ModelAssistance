@@ -269,10 +269,12 @@ h4 {
       var days_ = {Monday:"LUNES", Tuesday:"MARTES", Wednesday: "MIERCOLES", Thursday:"JUEVES", Friday: "VIERNES"};
       var momentNow = moment();
       const momentHour = momentNow.format('HH:MM:SS');
-      console.log(momentHour);
+      
       const arrHour = momentHour.split(":");
       var day_= "";
       const hour_ = arrHour[0] +":"+arrHour[1];
+      console.log(hour_);
+      
       switch (momentNow.format('dddd')) {
         case 'Monday':
           day_ = days_.Friday;
@@ -292,17 +294,19 @@ h4 {
         default:
           break;
       }
-      
+      console.log(day_);
     </script>
 
     <?php 
       $hour_ = "<script> document.write(hour_) </script>";
       $day_ = "<script> document.write(day_) </script>";
-
+      // echo gettype($hour_);
+      // echo gettype($day_);
       $sqlSelectAsig = "SELECT at2.id_asignature FROM asig_teacher at2 
       INNER JOIN schedule_group sg ON at2.id_asignature = sg.id_asignature 
       WHERE '$hour_' BETWEEN sg.hour_ini AND sg.hour_complete 
       AND sg.dates = '$day_'";
+      echo $sqlSelectAsig ;
       $querySelectAsig = $conn->query($sqlSelectAsig);
       $rowSelectAsig = $querySelectAsig->fetch_assoc();
       $id_asignature_filter = $rowSelectAsig['id_asignature'];
