@@ -304,8 +304,8 @@ h4 {
       // echo gettype($day_);
       $sqlSelectAsig = "SELECT at2.id_asignature FROM asig_teacher at2 
       INNER JOIN schedule_group sg ON at2.id_asignature = sg.id_asignature 
-      WHERE '$hour_' BETWEEN sg.hour_ini AND sg.hour_complete 
-      AND sg.dates = '$day_'";
+      WHERE '19:10' BETWEEN sg.hour_ini AND sg.hour_complete 
+      AND sg.dates = 'MARTES'";
       // echo $sqlSelectAsig ;
       $querySelectAsig = $conn->query($sqlSelectAsig);
       $rowSelectAsig = $querySelectAsig->fetch_assoc();
