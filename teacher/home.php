@@ -65,7 +65,6 @@ if (isset($_GET['code'])) {
 <style>
 .container {
   padding: 2rem 0rem;
-  width: 1400px;
 }
 
 h4 {
