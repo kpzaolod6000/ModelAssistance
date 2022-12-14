@@ -6,6 +6,5 @@
 	if ($conn->connect_error) {
 	    die("Connection failed: " . $conn->connect_error);
 	}
-	
+	//** mysql://b36b5a4bddf873:1e177132@us-cdbr-east-06.cleardb.net/heroku_20d06c9d3ee2989?reconnect=true */	
 ?>
-//** mysql://b36b5a4bddf873:1e177132@us-cdbr-east-06.cleardb.net/heroku_20d06c9d3ee2989?reconnect=true */

@@ -306,7 +306,7 @@ h4 {
       INNER JOIN schedule_group sg ON at2.id_asignature = sg.id_asignature 
       WHERE '$hour_' BETWEEN sg.hour_ini AND sg.hour_complete 
       AND sg.dates = '$day_'";
-      echo $sqlSelectAsig ;
+      // echo $sqlSelectAsig ;
       $querySelectAsig = $conn->query($sqlSelectAsig);
       $rowSelectAsig = $querySelectAsig->fetch_assoc();
       $id_asignature_filter = $rowSelectAsig['id_asignature'];
