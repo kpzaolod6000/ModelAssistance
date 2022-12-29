@@ -27,14 +27,14 @@
                   	<label for="firstname" class="col-sm-3 control-label">Nombre</label>
 
                   	<div class="col-sm-9">
-                    	<input type="text" class="form-control" id="firstname" name="firstname" value="<?php echo $user['firstname']; ?>">
+                    	<input type="text" class="form-control" id="firstname" name="firstname" value="<?php echo $user['names']; ?>">
                   	</div>
                 </div>
                 <div class="form-group">
                   	<label for="lastname" class="col-sm-3 control-label">Apellido</label>
 
                   	<div class="col-sm-9">
-                    	<input type="text" class="form-control" id="lastname" name="lastname" value="<?php echo $user['lastname']; ?>">
+                    	<input type="text" class="form-control" id="lastname" name="lastname" value="<?php echo $user['surnames']; ?>">
                   	</div>
                 </div>
                 <div class="form-group">
