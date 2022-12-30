@@ -375,7 +375,7 @@ h4 {
                       <td>'.$rowSelectT["names"].'</td>
                       <td>
                         <button id = "btnStudent'.$count_.'" onclick ="editoEstado('.$count_.')" type="button" class="btn btn-success"><i id="student'.$count_.'" class="fa fa-circle" aria-hidden="true"></i> </button>
-                        <button type="button" data-toggle="collapse" href="#collapseExample'.$count_.'" aria-expanded="false" aria-controls="collapseExample" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                        <button type="button" data-toggle="collapse" href="#collapseExample'.$count_.'" aria-expanded="false" aria-controls="collapseExample'.$count_.'" class="btn btn-warning"><i class="fa fa-edit"></i></button>
                         <div class="collapse" id="collapseExample'.$count_.'">
                             <div class="card card-body">
                                 <div class="input-group-'.$count_.'" id = "input-group-'.$count_.'">
